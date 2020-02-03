@@ -1,8 +1,6 @@
-import env from 'dotenv';
-
-env.config();
+import env from './index';
 
 export default {
-  tokenKey: process.env.TOKEN_KEY,
+  tokenKey: env.TOKEN_KEY,
   expiresIn: '7d',
 };
