@@ -19,6 +19,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-console': 'off',
     camelcase: 'off',
+    'import/prefer-default-export': 'off',
     'no-unused-vars': [2, { argsIgnorePattern: 'next' }],
   },
 }
