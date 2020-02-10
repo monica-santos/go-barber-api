@@ -1,11 +1,11 @@
-import env from './index';
+import env from './index'
 
 const {
   MAIL_HOST: host,
   MAIL_PORT: port,
   MAIL_USER: user,
   MAIL_PASS: pass,
-} = env;
+} = env
 
 export default {
   host,
@@ -13,4 +13,4 @@ export default {
   secure: false,
   auth: { user, pass },
   default: { from: 'Equipe GoBarber <noreply@gobarber.com>' },
-};
+}

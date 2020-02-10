@@ -1,5 +1,5 @@
-import * as Yup from 'yup';
-import User from '../models/User';
+import * as Yup from 'yup'
+import User from '../models/User'
 
 class UserController {
   async store(req, res) {
@@ -11,21 +11,21 @@ class UserController {
       password: Yup.string()
         .min(6)
         .required(),
-    });
+    })
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed' });
+      return res.status(400).json({ error: 'Validation failed' })
     }
 
     const existingUser = await User.findOne({
       where: { email: req.body.email },
-    });
+    })
     if (existingUser) {
-      return res.status(400).json({ error: 'User already exists' });
+      return res.status(400).json({ error: 'User already exists' })
     }
 
-    const { id, name, email, provider } = await User.create(req.body);
-    return res.json({ id, name, email, provider });
+    const { id, name, email, provider } = await User.create(req.body)
+    return res.json({ id, name, email, provider })
   }
 
   async update(req, res) {
@@ -41,32 +41,32 @@ class UserController {
         .when('oldPassword', (oldPassword, field) =>
           oldPassword ? field.required() : field
         ),
-    });
+    })
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed' });
+      return res.status(400).json({ error: 'Validation failed' })
     }
-    const { email, oldPassword } = req.body;
+    const { email, oldPassword } = req.body
 
-    const user = await User.findByPk(req.userId);
+    const user = await User.findByPk(req.userId)
     if (email && email !== user.email) {
       const existingUser = await User.findOne({
         where: { email },
-      });
+      })
 
       if (existingUser) {
-        return res.status(400).json({ error: 'User already exists' });
+        return res.status(400).json({ error: 'User already exists' })
       }
     }
 
     if (oldPassword && !(await (await user).checkPassword(oldPassword))) {
-      return res.status(401).json({ error: 'Password does not match' });
+      return res.status(401).json({ error: 'Password does not match' })
     }
 
-    const { id, name, provider } = await user.update(req.body);
+    const { id, name, provider } = await user.update(req.body)
 
-    return res.json({ id, name, email, provider });
+    return res.json({ id, name, email, provider })
   }
 }
 
-export default new UserController();
+export default new UserController()

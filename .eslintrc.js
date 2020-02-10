@@ -21,4 +21,4 @@ module.exports = {
     camelcase: 'off',
     'no-unused-vars': [2, { argsIgnorePattern: 'next' }],
   },
-};
+}

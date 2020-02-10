@@ -1,25 +1,25 @@
-import Sequelize from 'sequelize';
-import mongoose from 'mongoose';
+import Sequelize from 'sequelize'
+import mongoose from 'mongoose'
 
-import databaseConfig from '../config/database';
+import databaseConfig from '../config/database'
 
-import Appointment from '../app/models/Appointment';
-import File from '../app/models/File';
-import User from '../app/models/User';
+import Appointment from '../app/models/Appointment'
+import File from '../app/models/File'
+import User from '../app/models/User'
 
-const models = [Appointment, File, User];
+const models = [Appointment, File, User]
 
 class Database {
   constructor() {
-    this.init();
-    this.mongo();
+    this.init()
+    this.mongo()
   }
 
   init() {
-    this.connection = new Sequelize(databaseConfig);
+    this.connection = new Sequelize(databaseConfig)
     models
       .map(model => model.init(this.connection))
-      .map(model => model.associate && model.associate(this.connection.models));
+      .map(model => model.associate && model.associate(this.connection.models))
   }
 
   mongo() {
@@ -29,8 +29,8 @@ class Database {
         useNewUrlParser: true,
         useFindAndModify: true,
       }
-    );
+    )
   }
 }
 
-export default new Database();
+export default new Database()

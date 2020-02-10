@@ -1,22 +1,22 @@
-import Notification from '../schemas/Notification';
-import User from '../models/User';
+import Notification from '../schemas/Notification'
+import User from '../models/User'
 
 class NotificationController {
   async index(req, res) {
     const checkUserProvider = await User.findOne({
       where: { id: req.userId, provider: true },
-    });
+    })
 
     if (!checkUserProvider) {
-      return res.status(401).json({ error: 'User is not provider' });
+      return res.status(401).json({ error: 'User is not provider' })
     }
 
     const notifications = await Notification.find({
       user: req.userId,
     })
       .sort({ createdAt: 1 })
-      .limit(20);
-    return res.json(notifications);
+      .limit(20)
+    return res.json(notifications)
   }
 
   async update(req, res) {
@@ -24,9 +24,9 @@ class NotificationController {
       req.params.id,
       { read: true },
       { new: true }
-    );
-    return res.json(notification);
+    )
+    return res.json(notification)
   }
 }
 
-export default new NotificationController();
+export default new NotificationController()
