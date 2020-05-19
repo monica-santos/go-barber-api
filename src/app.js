@@ -18,6 +18,7 @@ class App {
   }
 
   middlewares() {
+    console.log('teste')
     this.server.use(Sentry.Handlers.requestHandler())
     this.server.use(cors())
     this.server.use(express.json())
